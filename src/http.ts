@@ -179,6 +179,12 @@ export class HttpClient implements IHttpClient {
         callback(null, res, res.body);
       });
     } else {
+      
+      if (options.uri.protocol === 'http:'){
+        options.uri.protocol = 'https:';
+        options.uri.href = options.uri.href.replace('http:', 'https:');
+      }
+      
       req = this._request(options, (err, res, body) => {
         if (err) {
           return callback(err);
